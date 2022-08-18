@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -19,10 +20,16 @@ public class SongServiceImpl implements ISongService {
     @Autowired
     UserDetailService userDetailService;
 
-
     @Override
     public Page<Song> findAll(Pageable pageable) {
         return songRepository.findAll(pageable);
+    }
+
+    @Override
+    public List<Song> findAllByUserId() {
+        if(userDetailService.getCurrentUser().getId()== null) {
+            return null;
+        } else return songRepository.findAllByUserId(userDetailService.getCurrentUser().getId());
     }
 
     @Override
@@ -46,4 +53,5 @@ public class SongServiceImpl implements ISongService {
     public void deleteById(Long id) {
         songRepository.deleteById(id);
     }
+
 }

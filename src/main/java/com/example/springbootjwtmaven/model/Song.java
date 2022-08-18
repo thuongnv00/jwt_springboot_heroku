@@ -17,8 +17,11 @@ public class Song {
     private String avatarURl;
     private String mp3Url;
 
+
+
     @ManyToOne
-    User user;
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public Song() {
     }
@@ -30,6 +33,14 @@ public class Song {
         this.avatarURl = avatarURl;
         this.mp3Url = mp3Url;
         this.user = user;
+    }
+
+    public Song(Long id, String nameSong, String lyrics, String avatarURl, String mp3Url) {
+        this.id = id;
+        this.nameSong = nameSong;
+        this.lyrics = lyrics;
+        this.avatarURl = avatarURl;
+        this.mp3Url = mp3Url;
     }
 
     public Long getId() {
